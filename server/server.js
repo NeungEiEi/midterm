@@ -20,7 +20,9 @@ io.on('connection', function (socket) {
         var name = Data.name;
         if (number == luckeyNumber) {
             socket.emit('youWin');
-            socket.broadcast.emit('haveWinner', name);
+            socket.broadcast.emit('haveWinner', data);
+            ResetNumber();
+
         } else if (number > luckeyNumber) {
             socket.emit('moreThan');
         } else if (number < luckeyNumber) {
@@ -28,15 +30,15 @@ io.on('connection', function (socket) {
         }
     });
 
-    socket.on('resetnumber', function () {
-        newLuckeyNumber = Math.floor(Math.random() * 101);
-        luckeyNumber = newLuckeyNumber;
-        console.log(luckeyNumber);
+    socket.on('disconnect', function () {
+        console.log('player disconnect');
     });
-
-
 });
 
 console.log('server start');
 console.log(luckeyNumber);
-
+function ResetNumber() {
+    newLuckeyNumber = Math.floor(Math.random() * 101);
+    luckeyNumber = newLuckeyNumber;
+    console.log(luckeyNumber);
+}

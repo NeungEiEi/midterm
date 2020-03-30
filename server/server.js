@@ -25,8 +25,10 @@ io.on('connection', function (socket) {
 
         } else if (number > luckeyNumber) {
             socket.emit('moreThan');
+            console.log('emit >');
         } else if (number < luckeyNumber) {
             socket.emit('lessThan')
+            console.log('emit <');
         }
     });
 
